@@ -1,6 +1,6 @@
 const API_BASE_URL = "http://localhost:8000";
 
-export async function queryRAG(query) {
+export async function queryRAG(query, conversationHistory = []) {
   const response = await fetch(`${API_BASE_URL}/query`, {
     method: "POST",
     headers: {
@@ -8,6 +8,7 @@ export async function queryRAG(query) {
     },
     body: JSON.stringify({
       query,
+      conversation_history: conversationHistory,
     }),
   });
 

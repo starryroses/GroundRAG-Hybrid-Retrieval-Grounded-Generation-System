@@ -7,6 +7,7 @@ from src.reranking.cross_encoder import CrossEncoderReranker
 from src.generation.groq_llm import GroqLLM
 from src.grounding.verifier import GroundingVerifier
 from src.pipeline.rag_pipeline import RAGPipeline
+from src.generation.query_rewriter import QueryRewriter
 
 
 class RAGContainer:
@@ -19,6 +20,10 @@ class RAGContainer:
         print("=" * 80)
         print("INITIALIZING RAG SYSTEM")
         print("=" * 80)
+
+        print("\nInitializing query rewriter...")
+        self.query_rewriter = QueryRewriter()
+        print("Query rewriter ready.")
         # --------------------------------------------------
         # 1. Load documents
         # --------------------------------------------------
@@ -74,14 +79,15 @@ class RAGContainer:
             reranker=self.reranker,
             llm=self.llm,
             verifier=self.verifier,
+            query_rewriter=self.query_rewriter,
         )
 
         print("\n" + "=" * 80)
         print("RAG SYSTEM READY")
         print("=" * 80)
 
-    def answer(self, query: str):
+    def answer(self, query: str, conversation_history: list[dict] | None = None,):
         """
         Run a query through the already initialized RAG system.
         """
-        return self.pipeline.answer(query)
+        return self.pipeline.answer(query,conversation_history=conversation_history,)

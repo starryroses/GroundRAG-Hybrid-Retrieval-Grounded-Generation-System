@@ -1,11 +1,19 @@
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 from src.app import state
+from pydantic import BaseModel, Field
 
 router = APIRouter()
 
+class ConversationMessage(BaseModel):
+    role: str
+    content: str
+
 class QueryRequest(BaseModel):
     query: str
+    conversation_history: list[ConversationMessage] = Field(
+        default_factory=list
+    )
 
 @router.post("/query")
 def query_rag(request: QueryRequest):
@@ -20,7 +28,16 @@ def query_rag(request: QueryRequest):
             status_code=400,
             detail="Query cannot be empty.",
         )
-    result = state.rag_container.answer(query)
+
+    history = [
+        {
+            "role": message.role,
+            "content": message.content,
+        }
+        for message in request.conversation_history
+    ]
+
+    result = state.rag_container.answer(query, conversation_history=history,)
     return {
         "query": result.query,
         "answer": result.answer,

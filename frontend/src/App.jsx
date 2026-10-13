@@ -31,7 +31,7 @@ function App() {
   setInput("");
 
   try {
-    const result = await queryRAG(query);
+    const result = await queryRAG(query, messages);
 
     const assistantMessage = {
       id: Date.now() + 1,
