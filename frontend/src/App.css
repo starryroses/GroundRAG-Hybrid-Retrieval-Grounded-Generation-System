@@ -1,155 +1,260 @@
+
+/* 1. Base */
 * {
   box-sizing: border-box;
 }
 
 body {
   margin: 0;
-  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-    sans-serif;
-  background: #f7f7f8;
-  color: #1f1f1f;
+  font-family: Arial, sans-serif;
+  background: #f8fafc;
+  color: #1e293b;
 }
 
-button,
-input {
-  font: inherit;
-}
-
-.app {
+#root {
   min-height: 100vh;
+}
+
+.app-shell {
+  min-height: 100vh;
+  background: #f8fafc;
+  color: #1e293b;
+}
+
+/* 2. Header */
+.app-header {
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 28px;
+  background: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
 }
 
-/* Header */
-
-.header {
-  padding: 20px 32px;
-  border-bottom: 1px solid #e5e5e5;
-  background: white;
+.brand-mark {
+  font-size: 26px;
+  font-weight: bold;
+  color: #2563eb !important;
 }
 
-.header h1 {
+.brand-copy h1 {
   margin: 0;
   font-size: 22px;
+  color: #1e293b !important;
 }
 
-.header p {
+.brand-copy p {
   margin: 5px 0 0;
-  color: #777;
-  font-size: 14px;
+  font-size: 13px;
+  color: #64748b !important;
 }
 
-/* Chat */
+.header-status {
+  margin-left: auto;
+  color: #475569 !important;
+  font-size: 13px;
+}
 
-.chat-container {
-  width: min(900px, 100%);
+/* 3. Main layout */
+.workspace {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(260px, 1fr);
+  gap: 20px;
+  max-width: 1400px;
   margin: 0 auto;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
   padding: 24px;
 }
 
-.messages {
-  flex: 1;
+.chat-section,
+.evidence-panel {
+  min-width: 0;
+  padding: 20px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  color: #1e293b !important;
+}
+
+/* 4. All headings and text */
+h1, h2, h3, h4,
+p, span, strong, label {
+  color: #1e293b;
+}
+
+.section-topbar {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 16px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.section-topbar h2 {
+  margin: 5px 0 0;
+  font-size: 20px;
+  color: #1e293b !important;
+}
+
+.eyebrow {
+  font-size: 12px;
+  color: #64748b !important;
+}
+
+/* 5. Buttons: always readable */
+button {
+  color: #ffffff !important;
+  background: #2563eb !important;
+  border: 1px solid #2563eb !important;
+  border-radius: 6px;
+  padding: 9px 14px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+button:hover {
+  background: #1d4ed8 !important;
+}
+
+button:disabled {
+  background: #cbd5e1 !important;
+  border-color: #cbd5e1 !important;
+  color: #334155 !important;
+  cursor: not-allowed;
+}
+
+.clear-button {
+  color: #334155 !important;
+  background: #ffffff !important;
+  border-color: #cbd5e1 !important;
+}
+
+.clear-button:hover {
+  background: #f1f5f9 !important;
+}
+
+/* 6. Chat messages */
+.chat-window {
+  min-height: 320px;
+  color: #1e293b !important;
+}
+
+.message {
+  margin: 14px 0;
+  padding: 14px;
+  background: #f8fafc;
+  color: #1e293b !important;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+}
+
+.message p {
+  color: #1e293b !important;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+/* 7. Welcome screen */
+.chat-window h1,
+.chat-window h2,
+.chat-window h3 {
+  color: #1e293b !important;
+}
+
+.chat-window p {
+  color: #475569 !important;
+}
+
+.chat-window .welcome-title,
+.chat-window .welcome-subtitle {
+  color: #1e293b !important;
+}
+
+/* 8. Input */
+.composer-area {
+  padding-top: 16px;
+  margin-top: 16px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.composer-area form {
+  display: flex;
+  gap: 10px;
   align-items: center;
 }
 
-.empty-state {
-  text-align: center;
-  color: #666;
-}
-
-.empty-state h2 {
-  color: #333;
-  margin-bottom: 8px;
-}
-
-.empty-state p {
-  margin: 0;
-}
-
-/* Input */
-
-.input-area {
-  display: flex;
-  gap: 10px;
-  padding-top: 20px;
-}
-
-.input-area input {
+.composer-area input,
+.composer-area textarea {
   flex: 1;
-  padding: 13px 16px;
-  border: 1px solid #d5d5d5;
-  border-radius: 8px;
-  outline: none;
-  background: white;
+  min-width: 0;
+  padding: 12px;
+  background: #ffffff !important;
+  color: #1e293b !important;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 14px;
 }
 
-.input-area input:focus {
-  border-color: #888;
+.composer-area input::placeholder,
+.composer-area textarea::placeholder {
+  color: #64748b !important;
+  opacity: 1;
 }
 
-.input-area button {
-  padding: 0 22px;
-  border: none;
-  border-radius: 8px;
-  background: #222;
-  color: white;
-  cursor: pointer;
-}
-
-.input-area button:hover {
-  background: #444;
-}
-
-/* Messages */
-
-.message-list {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-  width: 100%;
-}
-
-.message-row {
-  display: flex;
-}
-
-.user-row {
-  justify-content: flex-end;
-}
-
-.assistant-row {
-  justify-content: flex-start;
-}
-
-.message-bubble {
-  max-width: 75%;
-  padding: 12px 16px;
-  border-radius: 12px;
-}
-
-.user-message {
-  background: #222;
-  color: white;
-}
-
-.assistant-message {
-  background: white;
-  border: 1px solid #e5e5e5;
-}
-
-.message-role {
+.composer-footnote {
+  color: #64748b !important;
   font-size: 12px;
-  font-weight: 600;
-  margin-bottom: 6px;
-  opacity: 0.65;
+  text-align: center;
 }
 
-.message-content {
-  line-height: 1.5;
+/* 9. Evidence inspector */
+.evidence-panel h3 {
+  font-size: 19px;
+  color: #1e293b !important;
+}
+
+.evidence-panel p,
+.evidence-panel span,
+.evidence-panel strong {
+  color: #334155 !important;
+  overflow-wrap: anywhere;
+}
+
+.metric {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+/* 10. Loading */
+.loading-indicator {
+  padding: 12px 0;
+  color: #2563eb !important;
+}
+
+/* 11. Mobile */
+@media (max-width: 750px) {
+  .workspace {
+    grid-template-columns: 1fr;
+    padding: 12px;
+  }
+
+  .app-header {
+    padding: 14px;
+  }
+
+  .header-status {
+    display: none;
+  }
+
+  .chat-section,
+  .evidence-panel {
+    padding: 14px;
+  }
 }

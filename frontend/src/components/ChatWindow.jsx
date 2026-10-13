@@ -1,28 +1,35 @@
+
 import MessageBubble from "./MessageBubble";
 
-function ChatWindow({ messages }) {
-  if (messages.length === 0) {
-    return (
-      <div className="empty-state">
-        <h2>Ask your documents</h2>
-        <p>
-          Ask a question about the indexed BBC News corpus.
-        </p>
-      </div>
-    );
-  }
-
+export default function ChatWindow({
+  messages,
+  onEvidenceClick,
+}) {
   return (
-    <div className="message-list">
-      {messages.map((message) => (
-        <MessageBubble
-          key={message.id}
-          role={message.role}
-          content={message.content}
-        />
-      ))}
-    </div>
+    <section className="chat-window">
+      {messages.length === 0 ? (
+        <div className="welcome-state">
+          <span className="eyebrow">BBC NEWS KNOWLEDGE BASE</span>
+          <h2>Ask a question.<br />Follow the evidence.</h2>
+          <p>
+            Explore answers grounded in indexed BBC News articles.
+            Inspect the sources behind each response.
+          </p>
+
+          <div className="welcome-hint">
+            Try asking about business, politics, technology,
+            sport, or entertainment.
+          </div>
+        </div>
+      ) : (
+        messages.map((message) => (
+          <MessageBubble
+            key={message.id}
+            message={message}
+            onEvidenceClick={onEvidenceClick}
+          />
+        ))
+      )}
+    </section>
   );
 }
-
-export default ChatWindow;
